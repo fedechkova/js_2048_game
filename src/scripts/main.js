@@ -112,3 +112,56 @@ document.addEventListener('keydown', (e) => {
     updateGame();
   }
 });
+
+function initTouchControls() {
+  let startX = 0;
+  let startY = 0;
+
+  document.addEventListener(
+    'touchmove',
+    (e) => {
+      e.preventDefault();
+    },
+    { passive: false },
+  );
+
+  document.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  });
+
+  document.addEventListener('touchend', (e) => {
+    const endX = e.changedTouches[0].clientX;
+    const endY = e.changedTouches[0].clientY;
+
+    const dx = endX - startX;
+    const dy = endY - startY;
+    const minSwipe = 30;
+
+    if (Math.abs(dx) < minSwipe && Math.abs(dy) < minSwipe) {
+      return;
+    }
+
+    if (game.getStatus() !== 'playing') {
+      return;
+    }
+
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (dx > 0) {
+        game.moveRight();
+      } else {
+        game.moveLeft();
+      }
+    } else {
+      if (dy > 0) {
+        game.moveDown();
+      } else {
+        game.moveUp();
+      }
+    }
+
+    updateGame();
+  });
+}
+
+initTouchControls();
