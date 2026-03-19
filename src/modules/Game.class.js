@@ -60,9 +60,15 @@ class Game {
       this.board[row] = newRow;
     }
 
-    if (!this.boardsAreEqual(oldBoard, this.board)) {
+    const moved = !this.boardsAreEqual(oldBoard, this.board);
+
+    if (moved) {
       this.addRandomTile();
     }
+
+    this.updateStatus();
+
+    return moved;
   }
 
   moveRight() {
@@ -92,9 +98,15 @@ class Game {
       this.board[row] = newRow.reverse();
     }
 
-    if (!this.boardsAreEqual(oldBoard, this.board)) {
+    const moved = !this.boardsAreEqual(oldBoard, this.board);
+
+    if (moved) {
       this.addRandomTile();
     }
+
+    this.updateStatus();
+
+    return moved;
   }
 
   moveUp() {
@@ -125,9 +137,15 @@ class Game {
       }
     }
 
-    if (!this.boardsAreEqual(oldBoard, this.board)) {
+    const moved = !this.boardsAreEqual(oldBoard, this.board);
+
+    if (moved) {
       this.addRandomTile();
     }
+
+    this.updateStatus();
+
+    return moved;
   }
 
   moveDown() {
@@ -159,9 +177,15 @@ class Game {
       }
     }
 
-    if (!this.boardsAreEqual(oldBoard, this.board)) {
+    const moved = !this.boardsAreEqual(oldBoard, this.board);
+
+    if (moved) {
       this.addRandomTile();
     }
+
+    this.updateStatus();
+
+    return moved;
   }
 
   /**
@@ -204,6 +228,7 @@ class Game {
     this.status = 'playing';
     this.addRandomTile();
     this.addRandomTile();
+    this.updateStatus();
   }
 
   /**
@@ -216,6 +241,7 @@ class Game {
     this.status = 'playing';
     this.addRandomTile();
     this.addRandomTile();
+    this.updateStatus();
   }
 
   addRandomTile() {
@@ -234,14 +260,6 @@ class Game {
       const { row, col } = emptyCells[randomIndex];
 
       this.board[row][col] = Math.random() < 0.1 ? 4 : 2;
-    }
-
-    if (emptyCells.length === 0 && !this.canMove()) {
-      this.status = 'lose';
-    }
-
-    if (this.board.some((row) => row.includes(2048))) {
-      this.status = 'win';
     }
   }
 
@@ -275,6 +293,22 @@ class Game {
     }
 
     return true;
+  }
+
+  updateStatus() {
+    if (this.board.some((row) => row.includes(2048))) {
+      this.status = 'win';
+
+      return;
+    }
+
+    if (!this.canMove()) {
+      this.status = 'lose';
+
+      return;
+    }
+
+    this.status = 'playing';
   }
 }
 
