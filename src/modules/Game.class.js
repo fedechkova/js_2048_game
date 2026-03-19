@@ -35,6 +35,8 @@ class Game {
   }
 
   moveLeft() {
+    const oldBoard = this.board.map((row) => [...row]);
+
     for (let row = 0; row < 4; row++) {
       const currentRow = this.board[row];
 
@@ -58,10 +60,14 @@ class Game {
       this.board[row] = newRow;
     }
 
-    this.addRandomTile();
+    if (!this.boardsAreEqual(oldBoard, this.board)) {
+      this.addRandomTile();
+    }
   }
 
   moveRight() {
+    const oldBoard = this.board.map((row) => [...row]);
+
     for (let row = 0; row < 4; row++) {
       const currentRow = this.board[row];
       const reversedRow = [...currentRow].reverse();
@@ -86,10 +92,14 @@ class Game {
       this.board[row] = newRow.reverse();
     }
 
-    this.addRandomTile();
+    if (!this.boardsAreEqual(oldBoard, this.board)) {
+      this.addRandomTile();
+    }
   }
 
   moveUp() {
+    const oldBoard = this.board.map((row) => [...row]);
+
     for (let col = 0; col < 4; col++) {
       const currentCol = this.board.map((row) => row[col]);
 
@@ -115,10 +125,14 @@ class Game {
       }
     }
 
-    this.addRandomTile();
+    if (!this.boardsAreEqual(oldBoard, this.board)) {
+      this.addRandomTile();
+    }
   }
 
   moveDown() {
+    const oldBoard = this.board.map((row) => [...row]);
+
     for (let col = 0; col < 4; col++) {
       const currentCol = this.board.map((row) => row[col]);
       const reversedCol = [...currentCol].reverse();
@@ -145,7 +159,9 @@ class Game {
       }
     }
 
-    this.addRandomTile();
+    if (!this.boardsAreEqual(oldBoard, this.board)) {
+      this.addRandomTile();
+    }
   }
 
   /**
@@ -246,6 +262,18 @@ class Game {
     }
 
     return false;
+  }
+
+  boardsAreEqual(board1, board2) {
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        if (board1[i][j] !== board2[i][j]) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 }
 
