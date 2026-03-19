@@ -112,7 +112,3 @@ document.addEventListener('keydown', (e) => {
     updateGame();
   }
 });
-
-// module.exports = {
-//   updateGame,
-// };
