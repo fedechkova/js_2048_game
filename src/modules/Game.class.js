@@ -195,6 +195,7 @@ class Game {
   /**
    * Starts the game.
    */
+
   start() {
     if (this.status !== 'idle') {
       return;
