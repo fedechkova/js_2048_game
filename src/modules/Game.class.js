@@ -234,6 +234,7 @@ class Game {
   /**
    * Resets the game.
    */
+
   restart() {
     this.board = this.initialState.map((row) => [...row]);
     this.score = 0;
