@@ -7,6 +7,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "init": "mate-scripts init",
+    "homepage": "https://fedechkova.github.io/js_2048_game/",
     "start": "mate-scripts start",
     "style-format": "npx stylelint 'src/**/*.scss' --fix --allow-empty-input",
     "format": "prettier --ignore-path .prettierignore --write './src/**/*.{html,css,scss}'",
