@@ -195,7 +195,10 @@ class Game {
   restart() {
     this.board = this.initialState.map((row) => [...row]);
     this.score = 0;
-    this.status = 'idle';
+
+    this.status = 'playing';
+    this.addRandomTile();
+    this.addRandomTile();
   }
 
   addRandomTile() {
